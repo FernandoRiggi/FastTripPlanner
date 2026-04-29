@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun MainScreen(
+fun TripDataScreen(
     modifier: Modifier = Modifier,
     onAdvanceClick: (String, Int, Double) -> Unit
 ) {
@@ -90,6 +90,6 @@ fun MainScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun MainScreenPreview() {
-    MainScreen(onAdvanceClick = { _, _, _ ->})
+fun TripDataScreenPreview() {
+    TripDataScreen(onAdvanceClick = { _, _, _ ->})
 }
