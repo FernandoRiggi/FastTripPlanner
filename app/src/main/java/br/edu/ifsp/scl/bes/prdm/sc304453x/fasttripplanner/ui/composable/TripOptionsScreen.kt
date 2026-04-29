@@ -1,12 +1,15 @@
 package br.edu.ifsp.scl.bes.prdm.sc304453x.fasttripplanner.ui.composable
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,18 +28,16 @@ import br.edu.ifsp.scl.bes.prdm.sc304453x.fasttripplanner.AccommodationType
 @Composable
 fun TripOptionScreen(
     modifier: Modifier = Modifier,
-    onCalculateClick: (String, Int, Double) -> Unit,
-    onReturnClick: (String, Int, Double) -> Unit
+    onCalculateClick: (AccommodationType, Boolean, Boolean, Boolean) -> Unit,
+    onReturnClick: () -> Unit
 ) {
     var accommodationSelected by rememberSaveable { mutableStateOf(AccommodationType.ECONOMIC.name) }
     var hasTransport by rememberSaveable {mutableStateOf(false)}
     var hasFood by rememberSaveable {mutableStateOf(false)}
     var hasTours by rememberSaveable { mutableStateOf(false)}
 
-    var errorMessage by remember { mutableStateOf("") }
-
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = modifier.fillMaxSize().padding(16.dp)
     ) {
         Text("Escolha seu tipo de hospedagem")
         AccommodationType.entries.forEach { accommodation ->
@@ -62,6 +63,10 @@ fun TripOptionScreen(
         Text("Escolha os seus serviços")
 
         Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable {
+                    hasTransport = !hasTransport
+                },
             verticalAlignment =  Alignment.CenterVertically
         ) {
             Checkbox(
@@ -72,6 +77,10 @@ fun TripOptionScreen(
         }
 
         Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable {
+                    hasFood = !hasFood
+                },
             verticalAlignment =  Alignment.CenterVertically
         ) {
             Checkbox(
@@ -82,6 +91,10 @@ fun TripOptionScreen(
         }
 
         Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable {
+                    hasTours = !hasTours
+                },
             verticalAlignment =  Alignment.CenterVertically
         ) {
             Checkbox(
@@ -90,11 +103,41 @@ fun TripOptionScreen(
             )
             Text("Passeios")
         }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            OutlinedButton(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    onReturnClick()
+                }
+            ) {
+                Text("Voltar")
+            }
+
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = {
+                    val accommodationType = AccommodationType.valueOf(accommodationSelected)
+                    onCalculateClick(
+                        accommodationType,
+                        hasTransport,
+                        hasFood,
+                        hasTours
+                    )
+                }
+            ) {
+                Text("Calcular")
+            }
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun TripOptionsScreenPreview() {
-    TripOptionScreen(onCalculateClick = {_, _, _ ->}, onReturnClick = {_, _, _ ->})
+    TripOptionScreen(onCalculateClick = {_,_,_,_ ->}, onReturnClick = {})
 }
