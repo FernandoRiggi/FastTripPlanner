@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import br.edu.ifsp.scl.bes.prdm.sc304453x.fasttripplanner.AccommodationType
 
 @Composable
-fun TripOptionScreen(
+fun TripOptionsScreen(
     modifier: Modifier = Modifier,
     onCalculateClick: (AccommodationType, Boolean, Boolean, Boolean) -> Unit,
     onReturnClick: () -> Unit
@@ -139,5 +139,5 @@ fun TripOptionScreen(
 @Preview(showBackground = true)
 @Composable
 fun TripOptionsScreenPreview() {
-    TripOptionScreen(onCalculateClick = {_,_,_,_ ->}, onReturnClick = {})
+    TripOptionsScreen(onCalculateClick = {_,_,_,_ ->}, onReturnClick = {})
 }
