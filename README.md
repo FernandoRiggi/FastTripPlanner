@@ -151,13 +151,11 @@ git clone <url-do-repositorio>
 
 O vídeo demonstrativo do funcionamento do aplicativo deve ser incluído na entrega, conforme solicitado no enunciado.
 
-Sugestão de organização:
-
 ```text
-demo/funcionamento.mp4
+demo/FastTripPlanner.mp4
 ```
 
-O vídeo deve mostrar:
+O vídeo mostra:
 
 - preenchimento dos dados da viagem;
 - validação dos campos;
