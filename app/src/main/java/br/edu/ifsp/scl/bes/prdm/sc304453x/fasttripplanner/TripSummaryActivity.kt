@@ -12,10 +12,12 @@ class TripSummaryActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Recupera todos os dados enviados pelas telas anteriores.
         val destination = intent.getStringExtra(TripIntentKeys.DESTINATION) ?: ""
         val days = intent.getIntExtra(TripIntentKeys.DAYS, 0)
         val dailyBudget = intent.getDoubleExtra(TripIntentKeys.DAILY_BUDGET, 0.0)
 
+        // Converte a String recebida pelo Intent novamente para o enum usado no cálculo e na UI.
         val accommodationName = intent.getStringExtra(TripIntentKeys.ACCOMMODATION)
             ?: AccommodationType.ECONOMIC.name
 
@@ -25,6 +27,7 @@ class TripSummaryActivity : ComponentActivity() {
         val hasFood = intent.getBooleanExtra(TripIntentKeys.HAS_FOOD, false)
         val hasTours = intent.getBooleanExtra(TripIntentKeys.HAS_TOURS, false)
 
+        // Calcula o valor final antes de renderizar a tela de resumo.
         val totalPrice = TripCalculator.calculateTotal(
             days,
             dailyBudget,
@@ -47,6 +50,7 @@ class TripSummaryActivity : ComponentActivity() {
                     hasTours = hasTours,
                     totalPrice = totalPrice,
                     onRestartClick = {
+                        // Limpa as telas anteriores da pilha para reiniciar o planejamento do começo.
                         val restartIntent = Intent(
                             this@TripSummaryActivity,
                             MainActivity::class.java

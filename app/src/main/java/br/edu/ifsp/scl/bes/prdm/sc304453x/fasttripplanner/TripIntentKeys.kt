@@ -1,5 +1,7 @@
 package br.edu.ifsp.scl.bes.prdm.sc304453x.fasttripplanner
 
+// Centraliza as chaves usadas nos Intents para evitar erros de digitação
+// ao enviar e recuperar dados entre as Activities.
 object TripIntentKeys {
     const val DESTINATION = "destination"
     const val DAYS = "days"

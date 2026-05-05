@@ -40,6 +40,7 @@ fun TripResumeScreen(
         color = MaterialTheme.colorScheme.background
     ) {
 
+        // Mantém os dados alinhados à esquerda para facilitar a leitura do resumo.
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -71,6 +72,7 @@ fun TripResumeScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
+                // Valor calculado na Activity a partir das regras de negócio do projeto.
                 Text("Total: R$$totalPrice", fontSize = 20.sp, fontWeight = FontWeight.Bold)
 
                 Spacer(modifier = Modifier.height(16.dp))

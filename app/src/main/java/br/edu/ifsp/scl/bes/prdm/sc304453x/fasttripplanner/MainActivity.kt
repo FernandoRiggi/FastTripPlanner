@@ -16,10 +16,12 @@ class MainActivity : ComponentActivity() {
             FastTripPlannerTheme {
                 TripDataScreen(
                     onAdvanceClick = { destination, days, dailyBudget ->
+                        // Intent explícita para abrir a segunda tela do fluxo.
                         val intent = Intent(
                             this@MainActivity,
                             TripOptionsActivity::class.java
                         ).apply {
+                            // Dados digitados na primeira tela são enviados para a tela de opções.
                             putExtra(TripIntentKeys.DESTINATION, destination)
                             putExtra(TripIntentKeys.DAYS, days)
                             putExtra(TripIntentKeys.DAILY_BUDGET, dailyBudget)

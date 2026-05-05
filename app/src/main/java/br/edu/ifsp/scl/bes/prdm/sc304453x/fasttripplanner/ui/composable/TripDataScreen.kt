@@ -36,6 +36,8 @@ fun TripDataScreen(
     modifier: Modifier = Modifier,
     onAdvanceClick: (String, Int, Double) -> Unit
 ) {
+    // rememberSaveable preserva os campos preenchidos em mudanças de configuração,
+    // como rotação da tela.
     var destination by rememberSaveable { mutableStateOf("")}
     var days by rememberSaveable { mutableStateOf("")}
     var dailyBudget by rememberSaveable { mutableStateOf("")}
@@ -50,7 +52,9 @@ fun TripDataScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(24.dp)
+                // Permite rolar o formulário quando o teclado estiver aberto.
                 .verticalScroll(rememberScrollState())
+                // Evita que o teclado cubra os campos e o botão de avanço.
                 .imePadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
@@ -97,9 +101,11 @@ fun TripDataScreen(
 
             Button(
                 onClick = {
+                    // Converte os textos digitados para números antes de avançar.
                     val numberOfDays = days.toIntOrNull()
                     val dailyBudgetNumber = dailyBudget.toDoubleOrNull()
 
+                    // Validações simples para impedir que dados vazios ou inválidos avancem no fluxo.
                     if (destination.isBlank()) {
                         errorMessage = "Informe o destino"
                         return@Button
@@ -117,6 +123,7 @@ fun TripDataScreen(
 
                     errorMessage = ""
 
+                    // A navegação fica na Activity; o Composable apenas informa que o usuário avançou.
                     onAdvanceClick(
                         destination,
                         numberOfDays,

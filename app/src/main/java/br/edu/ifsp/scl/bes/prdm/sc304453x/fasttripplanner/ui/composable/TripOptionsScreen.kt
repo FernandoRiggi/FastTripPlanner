@@ -40,6 +40,7 @@ fun TripOptionsScreen(
     onCalculateClick: (AccommodationType, Boolean, Boolean, Boolean) -> Unit,
     onReturnClick: () -> Unit
 ) {
+    // O estado da tela fica salvo durante rotação do dispositivo.
     var accommodationSelected by rememberSaveable { mutableStateOf(AccommodationType.ECONOMIC.name) }
     var hasTransport by rememberSaveable {mutableStateOf(false)}
     var hasFood by rememberSaveable {mutableStateOf(false)}
@@ -78,6 +79,7 @@ fun TripOptionsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // RadioButton é usado porque apenas um tipo de hospedagem pode ser escolhido.
             AccommodationType.entries.forEach { accommodation ->
                 Row (
                     modifier = Modifier
@@ -108,6 +110,7 @@ fun TripOptionsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Checkboxes são usados porque o usuário pode selecionar mais de um serviço.
             Row(
                 modifier = Modifier.fillMaxWidth()
                     .clickable {
@@ -167,6 +170,7 @@ fun TripOptionsScreen(
                 Button(
                     modifier = Modifier.weight(1f),
                     onClick = {
+                        // Converte o nome salvo no estado para o enum usado pela Activity e pelo cálculo.
                         val accommodationType = AccommodationType.valueOf(accommodationSelected)
                         onCalculateClick(
                             accommodationType,
