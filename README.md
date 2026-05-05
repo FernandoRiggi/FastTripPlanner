@@ -153,6 +153,7 @@ O vídeo demonstrativo do funcionamento do aplicativo deve ser incluído na entr
 
 ```text
 demo/FastTripPlanner.mp4
+https://youtube.com/shorts/bstGAMIsq7w
 ```
 
 O vídeo mostra:
