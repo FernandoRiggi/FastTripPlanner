@@ -26,6 +26,7 @@ class TripSummaryActivity : ComponentActivity() {
         val hasTransport = intent.getBooleanExtra(TripIntentKeys.HAS_TRANSPORT, false)
         val hasFood = intent.getBooleanExtra(TripIntentKeys.HAS_FOOD, false)
         val hasTours = intent.getBooleanExtra(TripIntentKeys.HAS_TOURS, false)
+        val hasEconomicMode = intent.getBooleanExtra(TripIntentKeys.HAS_ECONOMIC_MODE, false)
 
         // Calcula o valor final antes de renderizar a tela de resumo.
         val totalPrice = TripCalculator.calculateTotal(
@@ -34,7 +35,8 @@ class TripSummaryActivity : ComponentActivity() {
             accommodationType,
             hasTransport,
             hasFood,
-            hasTours
+            hasTours,
+            hasEconomicMode
         )
 
         enableEdgeToEdge()

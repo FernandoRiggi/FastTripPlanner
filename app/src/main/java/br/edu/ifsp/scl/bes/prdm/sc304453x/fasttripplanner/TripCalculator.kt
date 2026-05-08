@@ -9,10 +9,15 @@ object TripCalculator {
         accommodationType: AccommodationType,
         hasTransport: Boolean,
         hasFood: Boolean,
-        hasTours: Boolean
+        hasTours: Boolean,
+        hasEconomicMode: Boolean
     ): Double {
+        var dailyBudgetCalculated = dailyBudget
+        if (hasEconomicMode) {
+            dailyBudgetCalculated = dailyBudget * 0.85
+        }
         // Custo base definido no enunciado: número de dias vezes orçamento diário.
-        val baseCost = days * dailyBudget
+        val baseCost = days * dailyBudgetCalculated
 
         // O custo da hospedagem varia conforme o multiplicador da opção selecionada.
         val accommodationCost = baseCost * accommodationType.multiplier

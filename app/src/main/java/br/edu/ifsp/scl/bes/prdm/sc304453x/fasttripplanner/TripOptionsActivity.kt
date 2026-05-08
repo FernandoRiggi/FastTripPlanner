@@ -23,7 +23,7 @@ class TripOptionsActivity : ComponentActivity() {
                         // Fecha a Activity atual e retorna para a tela anterior sem criar outra MainActivity.
                         finish()
                     },
-                    onCalculateClick = { accommodationType, hasTransport, hasFood, hasTours ->
+                    onCalculateClick = { accommodationType, hasTransport, hasFood, hasTours, hasEconomicMode ->
                         // Intent explícita para abrir a tela de resumo da viagem.
                         val intent = Intent(
                             this@TripOptionsActivity,
@@ -40,6 +40,7 @@ class TripOptionsActivity : ComponentActivity() {
                             putExtra(TripIntentKeys.HAS_TRANSPORT, hasTransport)
                             putExtra(TripIntentKeys.HAS_FOOD, hasFood)
                             putExtra(TripIntentKeys.HAS_TOURS, hasTours)
+                            putExtra(TripIntentKeys.HAS_ECONOMIC_MODE, hasEconomicMode)
                         }
 
                         startActivity(intent)

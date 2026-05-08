@@ -37,7 +37,7 @@ import br.edu.ifsp.scl.bes.prdm.sc304453x.fasttripplanner.ui.theme.FastTripPlann
 @Composable
 fun TripOptionsScreen(
     modifier: Modifier = Modifier,
-    onCalculateClick: (AccommodationType, Boolean, Boolean, Boolean) -> Unit,
+    onCalculateClick: (AccommodationType, Boolean, Boolean, Boolean, Boolean) -> Unit,
     onReturnClick: () -> Unit
 ) {
     // O estado da tela fica salvo durante rotação do dispositivo.
@@ -45,6 +45,7 @@ fun TripOptionsScreen(
     var hasTransport by rememberSaveable {mutableStateOf(false)}
     var hasFood by rememberSaveable {mutableStateOf(false)}
     var hasTours by rememberSaveable { mutableStateOf(false)}
+    var hasEconomicMode by rememberSaveable { mutableStateOf(false)}
 
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -71,33 +72,54 @@ fun TripOptionsScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Text(
-                text = "Escolha seu tipo de hospedagem",
-                fontSize = 20.sp,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth().clickable {
+                    hasEconomicMode = !hasEconomicMode
+                }, verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = hasEconomicMode,
+                    onCheckedChange = {
+                        hasEconomicMode = it;
+                        accommodationSelected = AccommodationType.ECONOMIC.name
+                    }
+                )
+                Text("Modo Economico")
+            }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(24.dp))
 
-            // RadioButton é usado porque apenas um tipo de hospedagem pode ser escolhido.
-            AccommodationType.entries.forEach { accommodation ->
-                Row (
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            accommodationSelected = accommodation.name
-                        },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    RadioButton(
-                        selected = accommodationSelected == accommodation.name,
-                        onClick = {
-                            accommodationSelected = accommodation.name
+            if (!hasEconomicMode) {
+                Text(
+                    text = "Escolha seu tipo de hospedagem",
+                    fontSize = 20.sp,
+                    modifier = Modifier.fillMaxWidth()
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // RadioButton é usado porque apenas um tipo de hospedagem pode ser escolhido.
+                AccommodationType.entries.forEach { accommodation ->
+                    Row (
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                accommodationSelected = accommodation.name
+                            },
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                            RadioButton(
+                                selected = accommodationSelected == accommodation.name,
+                                onClick = {
+                                    accommodationSelected = accommodation.name
+                                }
+                            )
+
+                            Text(accommodation.label)
                         }
-                    )
-
-                    Text(accommodation.label)
-                }
+                    }
+            } else {
+                accommodationSelected = AccommodationType.ECONOMIC.name
             }
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -146,11 +168,15 @@ fun TripOptionsScreen(
                     },
                 verticalAlignment =  Alignment.CenterVertically
             ) {
-                Checkbox(
-                    checked = hasTours,
-                    onCheckedChange = { hasTours = it}
-                )
-                Text("Passeios")
+                if(!hasEconomicMode){
+                    Checkbox(
+                        checked = hasTours,
+                        onCheckedChange = { hasTours = it}
+                    )
+                    Text("Passeios")
+                } else {
+                    hasTours = false
+                }
             }
 
             Row(
@@ -176,7 +202,8 @@ fun TripOptionsScreen(
                             accommodationType,
                             hasTransport,
                             hasFood,
-                            hasTours
+                            hasTours,
+                            hasEconomicMode
                         )
                     }
                 ) {
@@ -191,7 +218,7 @@ fun TripOptionsScreen(
 @Composable
 fun TripOptionsScreenPreview() {
     FastTripPlannerTheme {
-        TripOptionsScreen(onCalculateClick = {_,_,_,_ ->}, onReturnClick = {})
+        TripOptionsScreen(onCalculateClick = {_,_,_,_,_ ->}, onReturnClick = {})
     }
 }
 
@@ -203,6 +230,6 @@ fun TripOptionsScreenPreview() {
 @Composable
 fun TripOptionsScreenDarkPreview() {
     FastTripPlannerTheme {
-        TripOptionsScreen(onCalculateClick = {_,_,_,_ ->}, onReturnClick = {})
+        TripOptionsScreen(onCalculateClick = {_,_,_,_,_ ->}, onReturnClick = {})
     }
 }

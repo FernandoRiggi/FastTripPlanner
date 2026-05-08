@@ -11,4 +11,6 @@ object TripIntentKeys {
     const val HAS_TRANSPORT = "has_transport"
     const val HAS_FOOD = "has_food"
     const val HAS_TOURS = "has_tours"
+
+    const val HAS_ECONOMIC_MODE = "has_economic_mode"
 }
